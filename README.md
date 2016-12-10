@@ -7,10 +7,7 @@ Using bit/mask manipulation with the provided definition macros makes things a l
 Example is UART/GPIO code
 
  The code is meant to test the UART connection and the chip.
- Works for STM8L051F3 on custom PCB breakout, where:
- PB0 is an LED
- PB3 is a PU switch
- C5 is TX (pin1), goes to 'TX' on arduino as a UART bridge
+ Works for STM8L051F3 on custom PCB breakout, where: PB0 is an LED, PB3 is a PU switch, PC5 is TX (pin1) and goes to 'TX' on arduino as a UART bridge
   
  Props to	
  * ST for the std periph libraries
