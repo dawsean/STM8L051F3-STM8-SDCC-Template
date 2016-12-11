@@ -669,6 +669,11 @@ typedef enum {
 
 #define CLK_SWR_SWI               ((uint8_t)0x0F) /*!< System clock selection bits */
 
+#define CLK_SYSCLKSource_HSI	0x01	//selects clock
+#define CLK_SYSCLKSource_LSI	0x02	//for CLK->SWR
+#define CLK_SYSCLKSource_HSE	0x04	//RM0031 pg 110
+#define CLK_SYSCLKSource_LSE	0x08
+
 #define CLK_SWCR_SWIF             ((uint8_t)0x08) /*!< Clock switch interrupt flag */
 #define CLK_SWCR_SWIEN            ((uint8_t)0x04) /*!< Clock switch interrupt enable */
 #define CLK_SWCR_SWEN             ((uint8_t)0x02) /*!< Switch start/stop */
@@ -740,6 +745,16 @@ EXTI_TypeDef;
 /** @addtogroup EXTI_Registers_Bits_Definition
   * @{
   */
+/* SR1 */
+#define EXTI_SR1_P0F   ((uint8_t)0x01) // All Pin 1 EXTI Flag: 	1 = EXTI pending
+#define EXTI_SR1_P1F   ((uint8_t)0x02) //						0 = no interrupt
+#define EXTI_SR1_P2F   ((uint8_t)0x04) 
+#define EXTI_SR1_P3F   ((uint8_t)0x08) 
+#define EXTI_SR1_P4F   ((uint8_t)0x10) 
+#define EXTI_SR1_P5F   ((uint8_t)0x20) 
+#define EXTI_SR1_P6F   ((uint8_t)0x40) 
+#define EXTI_SR1_P7F   ((uint8_t)0x80) //Pin 7
+
 /* CR1 */
 #define EXTI_CR1_P3IS      ((uint8_t)0xC0) /*!< EXTI Pin 3 external interrupt sensitivity bit Mask */
 #define EXTI_CR1_P2IS      ((uint8_t)0x30) /*!< EXTI Pin 2 external interrupt sensitivity bit Mask */
@@ -1978,6 +1993,22 @@ TIM4_TypeDef;
 
 /* PSCR*/
 #define TIM4_PSCR_PSC    ((uint8_t)0x0F) /*!<Prescaler Value  Mask. */
+#define	TIM4_Prescaler_1		((uint8_t)0x00)   /*!< Time base Prescaler = 1 (No effect)*/
+#define TIM4_Prescaler_2       	((uint8_t)0x01)  /*!< Time base Prescaler = 2 */
+#define TIM4_Prescaler_4       	((uint8_t)0x02)  /*!< Time base Prescaler = 4 */
+#define TIM4_Prescaler_8       	((uint8_t)0x03)  /*!< Time base Prescaler = 8 */
+#define TIM4_Prescaler_16      	((uint8_t)0x04)  /*!< Time base Prescaler = 16 */
+#define TIM4_Prescaler_32      	((uint8_t)0x05)  /*!< Time base Prescaler = 32 */
+#define TIM4_Prescaler_64      	((uint8_t)0x06)  /*!< Time base Prescaler = 64 */
+#define TIM4_Prescaler_128     	((uint8_t)0x07)  /*!< Time base Prescaler = 128 */
+#define TIM4_Prescaler_256     	((uint8_t)0x08)  /*!< Time base Prescaler = 256 */
+#define TIM4_Prescaler_512     	((uint8_t)0x09)  /*!< Time base Prescaler = 512 */
+#define TIM4_Prescaler_1024    	((uint8_t)0x0A)  /*!< Time base Prescaler = 1024 */
+#define TIM4_Prescaler_2048    	((uint8_t)0x0B)  /*!< Time base Prescaler = 2048 */
+#define TIM4_Prescaler_4096    	((uint8_t)0x0C)  /*!< Time base Prescaler = 4096 */
+#define TIM4_Prescaler_8192    	((uint8_t)0x0D)  /*!< Time base Prescaler = 8196 */
+#define TIM4_Prescaler_16384   	((uint8_t)0x0E)  /*!< Time base Prescaler = 16384 */
+#define TIM4_Prescaler_32768   	((uint8_t)0x0F)  /*!< Time base Prescaler = 32768 */
 
 /* ARR*/
 #define TIM4_ARR_ARR     ((uint8_t)0xFF) /*!<Autoreload Value Mask. */
@@ -2182,16 +2213,36 @@ ADC_TypeDef;
 #define  ADC_CR1_EOCIE          ((uint8_t)0x08)
 #define  ADC_CR1_AWDIE          ((uint8_t)0x10)
 #define  ADC_CR1_RES            ((uint8_t)0x60)
+#define		ADC_RES_12b			(0b00 << 5)
+#define		ADC_RES_10b			(0b01 << 5)
+#define		ADC_RES_8b			(0b10 << 5)
+#define		ADC_RES_6b			(0b11 << 5)
 #define  ADC_CR1_OVERIE         ((uint8_t)0x80)
 
 
 #define  ADC_CR2_SMPT1          ((uint8_t)0x07)
+#define		ADC_CR2_SMPT_4cy		(0b000)
+#define		ADC_CR2_SMPT_9cy		(0b001)
+#define		ADC_CR2_SMPT_16cy		(0b010)
+#define		ADC_CR2_SMPT_24cy		(0b011)
+#define		ADC_CR2_SMPT_48cy		(0b100)
+#define		ADC_CR2_SMPT_96cy		(0b101)
+#define		ADC_CR2_SMPT_192cy		(0b110)
+#define		ADC_CR2_SMPT_384cy		(0b111)
 #define  ADC_CR2_EXTSEL         ((uint8_t)0x18)
 #define  ADC_CR2_TRIGEDGE       ((uint8_t)0x60)
 #define  ADC_CR2_PRESC          ((uint8_t)0x80)
 
 #define  ADC_CR3_CHSEL          ((uint8_t)0x1F)
 #define  ADC_CR3_SMPT2          ((uint8_t)0xE0)
+#define		ADC_CR3_SMPT_4cy		(0b000 << 5)
+#define		ADC_CR3_SMPT_9cy		(0b001 << 5)
+#define		ADC_CR3_SMPT_16cy		(0b010 << 5)
+#define		ADC_CR3_SMPT_24cy		(0b011 << 5)
+#define		ADC_CR3_SMPT_48cy		(0b100 << 5)
+#define		ADC_CR3_SMPT_96cy		(0b101 << 5)
+#define		ADC_CR3_SMPT_192cy		(0b110 << 5)
+#define		ADC_CR3_SMPT_384cy		(0b111 << 5)
 
 #define  ADC_SR_EOC             ((uint8_t)0x01)
 #define  ADC_SR_AWD             ((uint8_t)0x02)
@@ -2208,9 +2259,39 @@ ADC_TypeDef;
 
 #define  ADC_SQR1_CHSELS        ((uint8_t)0x3F)
 #define  ADC_SQR1_DMAOFF        ((uint8_t)0x80)
+#define		ADC_IN_TS			(1 << 5)
+#define		ADC_IN_Vref			(1 << 4)
+#define		ADC_IN27			(1 << 3)
+#define		ADC_IN26			(1 << 2)
+#define		ADC_IN25			(1 << 1)
+#define		ADC_IN24			(1 << 0)
 #define  ADC_SQR2_CHSELS        ((uint8_t)0xFF)
+#define		ADC_IN23			(1 << 7)
+#define		ADC_IN22			(1 << 6)
+#define		ADC_IN21			(1 << 5)
+#define		ADC_IN20			(1 << 4)
+#define		ADC_IN19			(1 << 3)
+#define		ADC_IN18			(1 << 2)
+#define		ADC_IN17			(1 << 1)
+#define		ADC_IN16			(1 << 0)
 #define  ADC_SQR3_CHSELS        ((uint8_t)0xFF)
+#define		ADC_IN15			(1 << 7)
+#define		ADC_IN14			(1 << 6)
+#define		ADC_IN13			(1 << 5)
+#define		ADC_IN12			(1 << 4)
+#define		ADC_IN11			(1 << 3)
+#define		ADC_IN10			(1 << 2)
+#define		ADC_IN9				(1 << 1)
+#define		ADC_IN8				(1 << 0)
 #define  ADC_SQR4_CHSELS        ((uint8_t)0xFF)
+#define		ADC_IN7				(1 << 7)
+#define		ADC_IN6				(1 << 6)
+#define		ADC_IN5				(1 << 5)
+#define		ADC_IN4				(1 << 4)
+#define		ADC_IN3				(1 << 3)
+#define		ADC_IN2				(1 << 2)
+#define		ADC_IN1				(1 << 1)
+#define		ADC_IN0				(1 << 0)
 
 #define  ADC_TRIGR1_TRIG        ((uint8_t)0x0F)
 #define  ADC_TRIGR1_VREFINTON   ((uint8_t)0x10)
@@ -2513,21 +2594,6 @@ Comments :    The different parameters of commands are
 #define BYTE_1(n)                 ((uint8_t)(BYTE_0((n) >> (uint8_t)8)))  /*!< Returns the second byte of the 32-bit value */
 #define BYTE_2(n)                 ((uint8_t)(BYTE_0((n) >> (uint8_t)16))) /*!< Returns the third byte of the 32-bit value */
 #define BYTE_3(n)                 ((uint8_t)(BYTE_0((n) >> (uint8_t)24))) /*!< Returns the high byte of the 32-bit value */
-
-/*-----------------------------------------------------------------------------
-Method : II
-Description : Handle directly the bit.
-Comments :    The idea is to handle directly with the bit name. For that, it is
-              necessary to have RAM area descriptions (example: HW register...)
-              and the following command line for each area.
-              This method generates the most optimized code.
------------------------------------------------------------------------------*/
-
-#define AREA 0x00     /* The area of bits begins at address 0x10. */
-
-#define BitClr(BIT)  ( *((unsigned char *) (AREA+(BIT)/8)) &= (~(1<<(7-(BIT)%8))) )
-#define BitSet(BIT)  ( *((unsigned char *) (AREA+(BIT)/8)) |= (1<<(7-(BIT)%8)) )
-#define BitVal(BIT)  ( *((unsigned char *) (AREA+(BIT)/8)) & (1<<(7-(BIT)%8)) )
 
 
 #endif /* __STM8L15x_H */
