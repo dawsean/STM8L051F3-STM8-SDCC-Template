@@ -1238,7 +1238,7 @@ PWR_TypeDef;
 
 #define PWR_CSR2_FWU            ((uint8_t)0x04) /*!< Fast wake up configuration mask */
 #define PWR_CSR2_ULP            ((uint8_t)0x02) /*!< Ultra Low power configuration mask  */
-#define PWR_CR2_VREFINTF        ((uint8_t)0x01) /*!< Internal reference voltage status flag mask  */
+#define PWR_CSR2_VREFINTF       ((uint8_t)0x01) /*!< Internal reference voltage status flag mask  */
 /**
   * @}
   */
